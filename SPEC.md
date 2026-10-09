@@ -1,6 +1,6 @@
-# D&D Dice Roller — Specification v1.2
+# D&D Dice Roller — Specification v2.0 (draft)
 
-Status: **v1.0 shipped as APK** (2026-10-08). **v1.1 changes** (2026-10-09): two dice shown as soon as Advantage/Disadvantage is picked, no auto-reset, sound and haptics with toggles in settings. **v1.2** (2026-10-09): web version on GitHub Pages.
+Status: **v1.0 shipped as APK** (2026-10-08). **v1.1 changes** (2026-10-09): two dice shown as soon as Advantage/Disadvantage is picked, no auto-reset, sound and haptics with toggles in settings. **v1.2** (2026-10-09): web version on GitHub Pages. **v2.0** (planned): dice skins on the web.
 
 ## 1. Goal
 The simplest possible app for rolling dice in D&D. One screen, one die, minimal controls.
@@ -92,5 +92,29 @@ Granite d20 showing **20** with a golden glow, on purple felt (variant "Golden c
 - On wide screens the mode selector and settings sheet keep a phone-like width (max 440 px).
 - Friends can "Add to Home screen" to get the dice icon and an app-like window.
 
-## 12. Out of scope
+## 12. Dice skins (release 2.0, web only)
+Inspired by resin dice: translucent bodies, metal-coloured numbers, things embedded inside.
+
+| Skin | Body | Inside | Numbers |
+|---|---|---|---|
+| **Granite** (default) | opaque grey stone | dark and light specks on the surface | white |
+| **Moonpetal** | frosted pearl-pink resin | blue petals, evenly spread | gold |
+| **Ocean Shards** | translucent blue | small foil shards (light blue, white, dark blue), evenly spread | copper-orange |
+| **Amethyst** | clear purple glass | nothing (clean glass with facet reflections) | gold |
+| **Opal Frost** | frosted white-lilac | iridescent glitter (pink, cyan, lilac, white, yellow) | turquoise |
+| **Starry Night** | dark navy glass | gold dust | gold |
+| **Emerald** | clear green gem | nothing (facet reflections) | gold |
+| **Ruby** | clear red gem | nothing (facet reflections) | gold |
+
+- Rendered in 3D like granite: translucent skins show the back edges through the body; inclusions sit **inside** the die, evenly spread, and turn with it while it rolls; glitter and gold dust sparkle as the die turns.
+- **One skin for all dice** (d4–d20, both dice in Advantage/Disadvantage).
+- The chosen skin persists between visits. Crit glow (§7) works the same on every skin.
+- **Settings sheet on the web gets two tabs: `Dice` · `Skins`** (default tab: Dice).
+  - The vibration/sound toggles stay above the tabs.
+  - **Dice** tab: the die grid as before, its tiles drawn in the chosen skin.
+  - **Skins** tab: grid of 3 columns, each tile a d20 in that skin plus its name; the chosen one highlighted.
+  - Tapping a skin applies it at once and keeps the sheet open, so skins can be compared (the dice behind the sheet change too).
+- **Android/iOS builds:** no Skins tab, always Granite (until skins are enabled there).
+
+## 13. Out of scope
 d100, roll history, multiple dice (2d6), modifiers (+5), shake to roll, themes, custom number of faces.

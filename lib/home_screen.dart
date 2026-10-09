@@ -169,7 +169,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   behavior: HitTestBehavior.opaque,
                   onTapUp: (d) => _onTapUp(d, size),
                   child: AnimatedBuilder(
-                    animation: _roll,
+                    // Settings too: picking a skin repaints the dice behind the open sheet.
+                    animation: Listenable.merge([_roll, widget.settings]),
                     builder: (context, _) => CustomPaint(
                       size: size,
                       painter: _DiceScenePainter(_visuals(size)),
@@ -221,6 +222,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       for (var i = 0; i < _dice.length; i++)
         DieVisual(
           geometry: _dice[i].geometry,
+          skin: widget.settings.skin,
           rotation: _dice[i].rotationAt(t),
           center: layout.centers[i] + _dice[i].offsetAt(t) * layout.radius,
           radius: layout.radius,
