@@ -1,0 +1,96 @@
+# D&D Dice Roller — Specification v1.2
+
+Status: **v1.0 shipped as APK** (2026-10-08). **v1.1 changes** (2026-10-09): two dice shown as soon as Advantage/Disadvantage is picked, no auto-reset, sound and haptics with toggles in settings. **v1.2** (2026-10-09): web version on GitHub Pages.
+
+## 1. Goal
+The simplest possible app for rolling dice in D&D. One screen, one die, minimal controls.
+
+## 2. Platforms & general
+- iOS and Android from a single codebase.
+- Fully offline. No ads, accounts, analytics or network access.
+- Portrait orientation only.
+- UI language: English.
+- Sound and haptics: see §9.
+
+## 3. Main screen
+- **Background:** full-screen purple felt (game-table cloth).
+- **Camera:** top-down view onto the table (like Baldur's Gate 3) — the die lies on the felt, we look at it from above.
+- **Die:** large, centered. Material: **grey granite** (speckled), **white numbers**.
+- **Settings button:** gear icon, top-right corner.
+- **Roll mode selector:** at the bottom of the screen (see §6).
+- The result is **never** duplicated as text — it is read only from the die itself.
+
+## 4. Roll
+1. User taps the die.
+2. The result is generated immediately (secure RNG, uniform distribution).
+3. The die rolls across the felt for ~1–1.5 s.
+4. The die stops with the result face **up** (towards the camera).
+5. Taps during the animation are ignored.
+
+Reading the result:
+- **d6, d8, d10, d12, d20:** the number on the top face.
+- **d4:** as on a physical die — three numbers per face, near the vertices. The die rests on a face with a vertex pointing up; all three visible faces show the same number next to that top vertex.
+
+## 5. Dice
+| Die | Values |
+|---|---|
+| d4 | 1–4 |
+| d6 | 1–6 |
+| d8 | 1–8 |
+| d10 | 1–10 |
+| d12 | 1–12 |
+| d20 | 1–20 |
+
+## 6. Advantage / Disadvantage
+- Segmented control with three states: **`Disadvantage · Normal · Advantage`**.
+- **Always visible**, works with **any** die.
+- Default on app launch: `Normal` (the mode is not persisted).
+- **The number of dice on screen always matches the mode:** `Normal` = one die; `Advantage` / `Disadvantage` = two dice side by side (each smaller than the single die so both fit).
+- **Switching the mode** (or the die type) shows a "clean table": every die rests with its maximum value up (e.g. 20 and 20), no glow, no transparency.
+- In `Advantage` / `Disadvantage` mode, one tap rolls both dice simultaneously.
+  - When they stop, the counted die (higher for Advantage, lower for Disadvantage) stays fully opaque; the other one becomes **semi-transparent** (~35% opacity).
+  - If both show the same value, both stay fully opaque.
+- **No auto-reset:** the mode stays selected until the user changes it.
+
+## 7. Crits (d20 only)
+- **20:** golden glow around the die.
+- **1:** red glow.
+- The glow is static (no pulsing) and stays until the next tap.
+- With Advantage/Disadvantage, the crit is determined by the counted die only (Advantage: glow if the higher die is 20 or 1; Disadvantage: if the lower die is). The glow is shown around the counted die.
+
+## 8. Settings
+- Opens as a bottom sheet over the dimmed main screen. No title/heading in the sheet.
+- **Top row:** two round icon toggles, centered — **vibration** and **sound** (see §9).
+  - On: normal icon. Off: dimmed icon crossed out by a diagonal line.
+  - Tapping a toggle flips it immediately; the sheet stays open.
+  - Default: both on. Both persist between app launches.
+- **Below:** die type — grid of 6 buttons (die silhouette + label): **d4 · d6 · d8 · d10 · d12 · d20**.
+  - Default: **d20**. The selection persists between app launches.
+  - Selecting a die closes the sheet; the new die appears on the main screen.
+
+## 9. Sound & haptics
+Synced to the roll animation, per die:
+| Moment | Sound | Haptic |
+|---|---|---|
+| Each bounce | short die-on-table knock | light tap |
+| Die stops | settle knock | medium tap |
+| Crit (d20 shows 20 or 1 on the counted die) | — | double vibration |
+
+- Sound: recorded dice-on-table samples from a free sound library (CC0 / public-domain license), bundled with the app (offline).
+- Sound respects the phone's silent mode (no sound when the phone is muted).
+- Each part works only when its toggle (§8) is on.
+
+## 10. App icon
+Granite d20 showing **20** with a golden glow, on purple felt (variant "Golden crit").
+
+## 11. Web version (v1.2)
+- Same app built for the browser, hosted for free on **GitHub Pages**; shared as a link.
+- Published automatically by GitHub Actions on every push to `main`.
+- Numbers use the bundled **Noto Serif Bold** font, so they look the same in every browser and on every platform.
+- Vibration toggle is shown only where vibration can work: phones, and browsers on Android. Desktop browsers and iPhone Safari show only the sound toggle.
+- Silent mode isn't visible to browsers; the sound toggle is the only control there.
+- On wide screens the mode selector and settings sheet keep a phone-like width (max 440 px).
+- Friends can "Add to Home screen" to get the dice icon and an app-like window.
+
+## 12. Out of scope
+d100, roll history, multiple dice (2d6), modifiers (+5), shake to roll, themes, custom number of faces.

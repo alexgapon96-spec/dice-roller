@@ -1,0 +1,47 @@
+name: dice_roller
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.13.5
+
+dependencies:
+  audioplayers: ^6.8.1
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.5.6
+  vector_math: ^2.4.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.4
+
+flutter:
+  uses-material-design: true
+  assets:
+    # Dice knocks cut from Kenney "Casino Audio" (CC0), see LICENSE file there.
+    - assets/sounds/
+  fonts:
+    # Noto Serif Bold (SIL OFL 1.1, see assets/fonts/OFL.txt), bundled so numbers
+    # look the same on every platform and in every browser.
+    - family: NotoSerif
+      fonts:
+        - asset: assets/fonts/NotoSerif-Bold.ttf
+          weight: 700
+
+# Icons are rendered by tool/icon/render_icon_test.dart.
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: assets/icon/icon.png
+  remove_alpha_ios: true
+  adaptive_icon_foreground: assets/icon/foreground.png
+  adaptive_icon_background: assets/icon/background.png
+  web:
+    generate: true
+    image_path: assets/icon/icon.png
+    background_color: "#3A2358"
+    theme_color: "#4A2F6E"
