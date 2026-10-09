@@ -1,6 +1,6 @@
-# D&D Dice Roller — Specification v2.0 (draft)
+# D&D Dice Roller — Specification v2.0
 
-Status: **v1.0 shipped as APK** (2026-10-08). **v1.1 changes** (2026-10-09): two dice shown as soon as Advantage/Disadvantage is picked, no auto-reset, sound and haptics with toggles in settings. **v1.2** (2026-10-09): web version on GitHub Pages. **v2.0** (planned): dice skins and new top-right controls, web only.
+Status: **v1.0 shipped as APK** (2026-10-08). **v1.1 changes** (2026-10-09): two dice shown as soon as Advantage/Disadvantage is picked, no auto-reset, sound and haptics with toggles in settings. **v1.2** (2026-10-09): web version on GitHub Pages. **v2.0** (2026-10-09, web only): dice skins, top-right controls, full-size Advantage dice, tap anywhere to roll.
 
 ## 1. Goal
 The simplest possible app for rolling dice in D&D. One screen, one die, minimal controls.
