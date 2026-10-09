@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'dice/die_renderer.dart';
@@ -8,6 +9,7 @@ import 'settings.dart';
 import 'widgets/die_picker_sheet.dart';
 import 'widgets/felt_background.dart';
 import 'widgets/roll_mode_selector.dart';
+import 'widgets/web_toolbar.dart';
 
 const _gold = Color(0xFFE8B84E);
 const _red = Color(0xFFE24B4A);
@@ -182,21 +184,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           ),
           SafeArea(
             child: Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: IconButton(
-                  onPressed: _openSettings,
-                  tooltip: 'Settings',
-                  iconSize: 30,
-                  color: const Color(0xFFD9CDEA),
-                  icon: const Icon(Icons.settings_outlined),
-                ),
-              ),
-            ),
-          ),
-          SafeArea(
-            child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 28),
@@ -208,6 +195,33 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               ),
             ),
           ),
+          // Last, so an open drop-down and its dimming cover everything else.
+          if (kIsWeb)
+            Positioned.fill(
+              child: WebToolbar(
+                settings: widget.settings,
+                busy: () => _rolling,
+                onPickDie: (type) {
+                  if (type != _type) _setDieType(type);
+                },
+              ),
+            )
+          else
+            SafeArea(
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: IconButton(
+                    onPressed: _openSettings,
+                    tooltip: 'Settings',
+                    iconSize: 30,
+                    color: const Color(0xFFD9CDEA),
+                    icon: const Icon(Icons.settings_outlined),
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );

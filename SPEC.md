@@ -1,6 +1,6 @@
 # D&D Dice Roller — Specification v2.0 (draft)
 
-Status: **v1.0 shipped as APK** (2026-10-08). **v1.1 changes** (2026-10-09): two dice shown as soon as Advantage/Disadvantage is picked, no auto-reset, sound and haptics with toggles in settings. **v1.2** (2026-10-09): web version on GitHub Pages. **v2.0** (planned): dice skins on the web.
+Status: **v1.0 shipped as APK** (2026-10-08). **v1.1 changes** (2026-10-09): two dice shown as soon as Advantage/Disadvantage is picked, no auto-reset, sound and haptics with toggles in settings. **v1.2** (2026-10-09): web version on GitHub Pages. **v2.0** (planned): dice skins and new top-right controls, web only.
 
 ## 1. Goal
 The simplest possible app for rolling dice in D&D. One screen, one die, minimal controls.
@@ -109,12 +109,24 @@ Inspired by resin dice: translucent bodies, metal-coloured numbers, things embed
 - Rendered in 3D like granite: translucent skins show the back edges through the body; inclusions sit **inside** the die, evenly spread, and turn with it while it rolls; glitter and gold dust sparkle as the die turns.
 - **One skin for all dice** (d4–d20, both dice in Advantage/Disadvantage).
 - The chosen skin persists between visits. Crit glow (§7) works the same on every skin.
-- **Settings sheet on the web gets two tabs: `Dice` · `Skins`** (default tab: Dice).
-  - The vibration/sound toggles stay above the tabs.
-  - **Dice** tab: the die grid as before, its tiles drawn in the chosen skin.
-  - **Skins** tab: grid of 3 columns, each tile a d20 in that skin plus its name; the chosen one highlighted.
-  - Tapping a skin applies it at once and keeps the sheet open, so skins can be compared (the dice behind the sheet change too).
-- **Android/iOS builds:** no Skins tab, always Granite (until skins are enabled there).
+- Picked in the **Skins** panel (§13).
 
-## 13. Out of scope
+## 13. Web controls (release 2.0)
+Replaces the gear + bottom sheet **on the web**. All 2.0 work is web-only; Android/iOS are untouched until decided otherwise.
+
+- **Top-right toolbar**, left to right:
+  - **Vibration** toggle — only on narrow screens (< 600 px wide) in browsers that can vibrate (Android).
+  - **Sound** toggle — icon only (speaker; crossed out when off).
+  - **Dice** button — mini die + current type + ▾, e.g. `◆ d20 ▾`.
+  - **Skins** button — mini d20 in the current skin + its name + ▾, e.g. `◆ Ruby ▾`.
+- **Dice / Skins panels** (one open at a time):
+  - **Wide screens (≥ 600 px):** the panel drops down from its button, anchored at the button's top-right corner; the button turns into a **✕** in the panel's top-right corner. The rest of the screen dims slightly.
+  - **Narrow screens (< 600 px):** the same panel slides up from the bottom, with the same title and ✕.
+  - Closing: ✕, tap/click outside, or **Esc**.
+  - Header: panel title (`Dice` / `Skins`) and ✕. Body: 3-column grid of tiles (as before).
+  - **Dice:** picking a die applies it and closes the panel. Tiles are drawn in the current skin.
+  - **Skins:** picking a skin applies it at once and keeps the panel open for comparing.
+- Toolbar buttons are ignored while dice are rolling.
+
+## 14. Out of scope
 d100, roll history, multiple dice (2d6), modifiers (+5), shake to roll, themes, custom number of faces.
