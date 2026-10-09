@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -141,8 +143,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   /// Screen centers and radius for the dice currently shown.
   ({List<Offset> centers, double radius}) _layout(Size size) {
     final center = Offset(size.width / 2, size.height * 0.46);
+    final single = (size.width * 0.34).clamp(0.0, size.height * 0.26);
     if (_dice.length == 1) {
-      return (centers: [center], radius: (size.width * 0.34).clamp(0, size.height * 0.26));
+      return (centers: [center], radius: single);
+    }
+    if (kIsWeb) {
+      // As big as the single die whenever two fit side by side (desktop);
+      // narrow screens shrink them just enough to fit.
+      final radius = math.min(single, size.width / 4.6);
+      final dx = radius * 1.2;
+      return (centers: [center - Offset(dx, 0), center + Offset(dx, 0)], radius: radius);
     }
     final dx = size.width * 0.24;
     return (
@@ -152,6 +162,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 
   void _onTapUp(TapUpDetails details, Size size) {
+    // On the web a tap anywhere on the table rolls; the controls on top
+    // take their own taps first.
+    if (kIsWeb) return _rollDice();
     final layout = _layout(size);
     final hit = layout.centers.any((c) => (details.localPosition - c).distance <= layout.radius * 1.25);
     if (hit) _rollDice();

@@ -127,6 +127,8 @@ Replaces the gear + bottom sheet **on the web**. All 2.0 work is web-only; Andro
   - **Dice:** picking a die applies it and closes the panel. Tiles are drawn in the current skin.
   - **Skins:** picking a skin applies it at once and keeps the panel open for comparing.
 - Toolbar buttons are ignored while dice are rolling.
+- **Tap anywhere to roll:** any tap/click on the table rolls (not only on the die); taps on the toolbar, an open panel and the mode selector do their own thing instead.
+- **Advantage / Disadvantage dice are as big as the single die** whenever both fit side by side (desktop); on narrow screens they shrink just enough to fit.
 
 ## 14. Out of scope
 d100, roll history, multiple dice (2d6), modifiers (+5), shake to roll, themes, custom number of faces.
